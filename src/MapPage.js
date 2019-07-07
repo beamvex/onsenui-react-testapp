@@ -22,7 +22,7 @@ class SimpleMap extends React.Component {
 
         return (
             // Important! Always set the container height explicitly
-            <div style={{ height: 'calc(100vh - 50px)', width: '100%' }}>
+            <div style={{ height: 'calc(100vh - 100px)', width: '100%', paddingTop: '45px' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: 'AIzaSyCI47PgInts5BBEQ8UypZYHqpf-zLeHiDY' }}
                     center={this.props.center}
@@ -60,6 +60,7 @@ class MapPage extends React.Component {
     }
 
     handleCancel() {
+        this.setState({isOpen:false});
         return;
     }
 
@@ -109,8 +110,6 @@ class MapPage extends React.Component {
                         }
                     </div>
                     <div className="alert-dialog-footer">
-                        <Button onClick={this.handleCancel.bind(this)} className="alert-dialog-button">
-                            Cancel</Button>
                         <Button onClick={this.handleCancel.bind(this)} className="alert-dialog-button">
                             Ok</Button>
                     </div>

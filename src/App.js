@@ -1,18 +1,34 @@
 import React from 'react';
-import { Tabbar, Tab, Page } from 'react-onsenui';
+import { Tabbar, Tab, Page, Toolbar, BackButton, ToolbarButton, Icon } from 'react-onsenui';
 import './App.css';
 import MapPage from './MapPage';
+import HomePage from './HomePage';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {index:1};
+    this.state = {index:0};
   }
 
   render() {
     return (
       <Page>
+        <Toolbar>
+          <div className="left">
+            <BackButton>
+                Back
+            </BackButton>
+          </div>
+          <div className="center">
+            Title
+          </div>
+          <div className="right">
+            <ToolbarButton>
+              <Icon icon="md-menu" />
+            </ToolbarButton>
+          </div>
+        </Toolbar>
         <Tabbar
           onPreChange={({ index }) => this.setState({index})}
           onPostChange={() => console.log('postChange')}
@@ -21,7 +37,9 @@ class App extends React.Component {
           index={this.state.index}
           renderTabs={(activeIndex, tabbar) => [
             {
-              content: <Page title="Home" active={activeIndex === 0} tabbar={tabbar} />,
+              content: <Page title="Home" active={activeIndex === 0} tabbar={tabbar}>
+                <HomePage/>
+                  </Page>,
               tab: <Tab label="Home" icon="md-home" />
             },
             {
