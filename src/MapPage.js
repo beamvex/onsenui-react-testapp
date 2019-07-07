@@ -3,6 +3,7 @@ import './App.css';
 import { Icon, AlertDialog, Button } from 'react-onsenui';
 import GoogleMapReact from 'google-map-react';
 import { thisTypeAnnotation } from '@babel/types';
+var fetch = require( 'node-fetch' );
 
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
@@ -88,13 +89,19 @@ class MapPage extends React.Component {
             },
             zoom: 17
         });
-
+        /*
         var theerror = {
             code: 1,
             message: 'working?'
         };
 
         this.setState({isOpen:true, theerror: {code: theerror.code, message: theerror.message}});
+        */
+
+       fetch('https://firestore.googleapis.com/v1/projects/test1-2b206/databases/(default)/documents/trucks/')
+       .then(res => res.text())
+       .then(body => console.log(body));
+
     }
 
     render() {

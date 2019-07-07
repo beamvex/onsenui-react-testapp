@@ -3,6 +3,7 @@ import { Tabbar, Tab, Page, Toolbar, BackButton, ToolbarButton, Icon } from 'rea
 import './App.css';
 import MapPage from './MapPage';
 import HomePage from './HomePage';
+import logoURL from './assets/img/iscream-logo.png';
 
 class App extends React.Component {
 
@@ -14,14 +15,14 @@ class App extends React.Component {
   render() {
     return (
       <Page>
-        <Toolbar>
+        <Toolbar className="gradient-back">
           <div className="left">
             <BackButton>
                 Back
             </BackButton>
           </div>
           <div className="center">
-            Title
+            <img src={logoURL} height="40px" alt="iscream.app"/>
           </div>
           <div className="right">
             <ToolbarButton>
