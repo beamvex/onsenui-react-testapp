@@ -2,8 +2,6 @@ import React from 'react';
 import './App.css';
 import { Icon, AlertDialog, Button } from 'react-onsenui';
 import GoogleMapReact from 'google-map-react';
-import { thisTypeAnnotation } from '@babel/types';
-
 
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
@@ -14,7 +12,7 @@ class SimpleMap extends React.Component {
     static defaultProps = {
         defCenter: {
             lat: 0,
-            lng: 0
+            lng: 51
         },
         defZoom: 1
     };
@@ -49,15 +47,12 @@ class MapPage extends React.Component {
         // Don't call this.setState() here!
         this.state = {
             center: {
-                lat: 0,
-                lng: 0
+                lat: 51.4934,
+                lng: 0.0098
             },
-            zoom: 1
+            zoom: 1,
+            isOpen: false
         };
-
-        this.showPosition = this.showPosition.bind(this);
-        this.geoerror = this.geoerror.bind(this);
-        this.getLocation();
     }
 
     handleCancel() {
@@ -65,46 +60,8 @@ class MapPage extends React.Component {
         return;
     }
 
-    getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition, this.geoerror);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-            this.setState({isOpen:true});
-        }
-    }
-
-    geoerror(theerror) {
-        this.setState({isOpen:true, theerror: {code: theerror.code, message: theerror.message}});
-    }
-
-    showPosition(position) {
-        console.log("Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude);
-
-        this.setState({
-            center: {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            },
-            zoom: 17
-        });
-        /*
-        var theerror = {
-            code: 1,
-            message: 'working?'
-        };
-
-        this.setState({isOpen:true, theerror: {code: theerror.code, message: theerror.message}});
-        */
-
-       
-  
-
-    }
-
     render() {
-        return (
+            return (
             <div>
             <AlertDialog isOpen={this.state.isOpen} onCancel={this.handleCancel.bind(this)} cancelable>
                     <div className="alert-dialog-title">Warning!</div>
