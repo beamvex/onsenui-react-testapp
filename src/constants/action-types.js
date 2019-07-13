@@ -1,0 +1,5 @@
+export const ADD_ARTICLE = "ADD_ARTICLE";
+export const GET_NEWS = "GET_NEWS";
+export const NEWS_RECEIVED = "NEWS_RECEIVED";
+export const GET_LOCATION = "GET_LOCATION";
+export const LOCATION_RECEIVED = "LOCATION_RECEIVED";
