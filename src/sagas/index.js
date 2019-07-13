@@ -21,7 +21,7 @@ function* fetchLocation() {
                 });
             }, 
             theerror => {
-                resolve({noGeo: true});
+                resolve({noGeo: true, reason: theerror});
             });
         } else {
             resolve({noGeo: true});
