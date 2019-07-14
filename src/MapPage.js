@@ -33,19 +33,17 @@ class TruckBase extends React.Component {
 
     render() {
          return (
-            <Button modifier="large--cta"          
+         <Icon
+            size={{ default: 32, material: 40 }}
+            icon={{ default: 'md-truck' }} 
             onClick={() => 
                 {
                     console.log("clicked!");
                     this.props.openPopUp(this.btn, this.props.document.fields.name.stringValue);
                 }}
-            ref={(btn) => { this.btn = btn; }}>
-         <Icon
-            size={{ default: 32, material: 40 }}
-            icon={{ default: 'md-gps-dot' }}   
+            ref={(btn) => { this.btn = btn; }}  
         >
-         </Icon>
-         </Button>);
+         </Icon>);
     }
 
 }
