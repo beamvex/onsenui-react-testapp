@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, NEWS_RECEIVED, LOCATION_RECEIVED } from "../constants/action-types";
+import { ADD_ARTICLE, NEWS_RECEIVED, LOCATION_RECEIVED, OPEN_POPOVER, CLOSE_POPOVER } from "../constants/action-types";
 const initialState = {
   articles: [],
   location: {
@@ -8,7 +8,12 @@ const initialState = {
     },
     zoom: 1
   },
-  documents: []
+  documents: [],
+  popover: {
+    text: '',
+    target: null,
+    isOpen: false
+  }
 };
 
 function rootReducer(state = initialState, action) {
@@ -29,6 +34,27 @@ function rootReducer(state = initialState, action) {
       documents: action.documents
     });
   }
-  return state;
+  else if (action.type === OPEN_POPOVER) {
+    console.log(action);
+    return Object.assign({}, state, {
+      popover: {
+        text: action.text,
+        target: action.target,
+        isOpen: true
+      }
+    });
+  }
+  else if (action.type === CLOSE_POPOVER) {
+      console.log(action);
+      return Object.assign({}, state, {
+        popover: {
+          text: '',
+          target: null,
+          isOpen: false
+        }
+      });
+    }
+    return state;
 }
+
 export default rootReducer;

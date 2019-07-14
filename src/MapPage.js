@@ -1,21 +1,84 @@
 import React from 'react';
 import './App.css';
-import { Icon, AlertDialog, Button } from 'react-onsenui';
+import { Icon, AlertDialog, Button, Popover } from 'react-onsenui';
 import GoogleMapReact from 'google-map-react';
 import { connect } from "react-redux";
+import { openPopUp, closePopUp } from "./actions/index"
 
 const mapStateToProps = state => {
   return state;
 };
+
+function mapDispatchToProps(dispatch) {
+    return {
+      openPopUp: (target, text) => dispatch(openPopUp(target, text)),
+      closePopUp: () => dispatch(closePopUp())
+    };
+}
+  
 
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
     icon={{ default: 'md-gps-dot' }}
 />;
 
-const Truck = ({ document }) => <Icon
-    size={{ default: 32, material: 40 }}
-    icon={{ default: 'md-gps-dot' }}>{document.fields.name.stringValue}</Icon>;
+class TruckBase extends React.Component {
+
+    constructor(props) {
+        super(props);
+       // Don't call this.setState() here!
+        this.state = {
+        };
+    }
+
+    render() {
+         return (
+            <Button modifier="large--cta"          
+            onClick={() => 
+                {
+                    console.log("clicked!");
+                    this.props.openPopUp(this.btn, this.props.document.fields.name.stringValue);
+                }}
+            ref={(btn) => { this.btn = btn; }}>
+         <Icon
+            size={{ default: 32, material: 40 }}
+            icon={{ default: 'md-gps-dot' }}   
+        >
+         </Icon>
+         </Button>);
+    }
+
+}
+
+const Truck = connect(mapStateToProps, mapDispatchToProps)(TruckBase);
+
+class MapPopoverBase extends React.Component {
+
+    constructor(props) {
+        super(props);
+        // Don't call this.setState() here!
+        this.state = {
+        };
+    }
+
+    render() {
+        console.log('map popover render', this.props.popover.isOpen);
+        return (
+        <Popover
+            isOpen={this.props.popover.isOpen}
+            onCancel={() => {console.log('cancelled'); this.props.closePopUp();}}
+            getTarget={() => this.props.popover.target} isCancelable={true}
+            >
+            <div style={{textAlign: 'center', opacity: 0.5}}>
+                <p>{this.props.popover.text}</p>
+                <p><small>Click the background to remove the popover.</small></p>
+                </div>
+                </Popover>
+        )
+    }
+}
+
+const MapPopover = connect(mapStateToProps, mapDispatchToProps)(MapPopoverBase);
 
 class SimpleMap extends React.Component {
     static defaultProps = {
@@ -62,9 +125,6 @@ class MapPage extends React.Component {
 
     constructor(props) {
         super(props);
-
-        
-
         // Don't call this.setState() here!
         this.state = {
             center: {
@@ -76,34 +136,15 @@ class MapPage extends React.Component {
         };
     }
 
-    handleCancel() {
-        this.setState({isOpen:false});
-        return;
-    }
-
     render() {
         console.log('mappage', this.props);
 
             return (
             <div>
-            <AlertDialog isOpen={this.state.isOpen} onCancel={this.handleCancel.bind(this)} cancelable>
-                    <div className="alert-dialog-title">Warning!</div>
-                    <div className="alert-dialog-content">
-                        An error has occurred!<br/>
-                        {this.state.theerror && <p>
-                        {this.state.theerror.code}<br/>
-                        {this.state.theerror.message}</p>
-                        }
-                    </div>
-                    <div className="alert-dialog-footer">
-                        <Button onClick={this.handleCancel.bind(this)} className="alert-dialog-button">
-                            Ok</Button>
-                    </div>
-                </AlertDialog>
-
             <SimpleMap center={this.props.location.center} zoom={this.props.location.zoom} documents={this.props.documents}>
                 
             </SimpleMap>
+            <MapPopover/>
             </div>
         );
     }

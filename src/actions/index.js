@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, GET_NEWS, NEWS_RECEIVED, GET_LOCATION, LOCATION_RECEIVED } from "../constants/action-types";
+import { ADD_ARTICLE, GET_NEWS, NEWS_RECEIVED, GET_LOCATION, LOCATION_RECEIVED, OPEN_POPOVER, CLOSE_POPOVER } from "../constants/action-types";
 
 export function addArticle(payload) {
   return { type: ADD_ARTICLE, payload };
@@ -19,4 +19,13 @@ export function newsReceived(documents) {
 export function locationReceived(location) {
     return { type: LOCATION_RECEIVED, location };
 }
+
+export function openPopUp(target, text) {
+    return { type: OPEN_POPOVER, target, text };
+}
+
+export function closePopUp() {
+    return { type: CLOSE_POPOVER}
+}
+
   

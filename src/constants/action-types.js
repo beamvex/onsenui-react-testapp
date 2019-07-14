@@ -3,3 +3,5 @@ export const GET_NEWS = "GET_NEWS";
 export const NEWS_RECEIVED = "NEWS_RECEIVED";
 export const GET_LOCATION = "GET_LOCATION";
 export const LOCATION_RECEIVED = "LOCATION_RECEIVED";
+export const OPEN_POPOVER = "OPEN_POPOVER";
+export const CLOSE_POPOVER = "CLOSE_POPOVER";
