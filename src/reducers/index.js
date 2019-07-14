@@ -1,13 +1,22 @@
 import { ADD_ARTICLE, NEWS_RECEIVED, LOCATION_RECEIVED } from "../constants/action-types";
 const initialState = {
-  articles: []
+  articles: [],
+  location: {
+    center: {
+      lat: 51.4934,
+      lng: 0.0098
+    },
+    zoom: 1
+  },
+  documents: []
 };
+
 function rootReducer(state = initialState, action) {
   if (action.type === ADD_ARTICLE) {
     return Object.assign({}, state, {
       articles: state.articles.concat(action.payload)
     });
-  } 
+  }
   else if (action.type === LOCATION_RECEIVED) {
     console.log(action);
     return Object.assign({}, state, {

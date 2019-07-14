@@ -2,11 +2,20 @@ import React from 'react';
 import './App.css';
 import { Icon, AlertDialog, Button } from 'react-onsenui';
 import GoogleMapReact from 'google-map-react';
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return state;
+};
 
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
     icon={{ default: 'md-gps-dot' }}
 />;
+
+const Truck = ({ document }) => <Icon
+    size={{ default: 32, material: 40 }}
+    icon={{ default: 'md-gps-dot' }}>{document.fields.name.stringValue}</Icon>;
 
 class SimpleMap extends React.Component {
     static defaultProps = {
@@ -34,6 +43,15 @@ class SimpleMap extends React.Component {
                         lng={this.props.center.lng}
                         text="My Marker"
                     />
+
+                    {this.props.documents.map(doc => {
+
+                        
+
+                        return (<Truck key={doc.name} lat={doc.fields.lat.doubleValue} lng={doc.fields.lng.doubleValue} document={doc} />);
+                    }
+                    )}
+
                 </GoogleMapReact>
             </div>
         );
@@ -44,6 +62,9 @@ class MapPage extends React.Component {
 
     constructor(props) {
         super(props);
+
+        
+
         // Don't call this.setState() here!
         this.state = {
             center: {
@@ -61,6 +82,8 @@ class MapPage extends React.Component {
     }
 
     render() {
+        console.log('mappage', this.props);
+
             return (
             <div>
             <AlertDialog isOpen={this.state.isOpen} onCancel={this.handleCancel.bind(this)} cancelable>
@@ -78,7 +101,7 @@ class MapPage extends React.Component {
                     </div>
                 </AlertDialog>
 
-            <SimpleMap center={this.state.center} zoom={this.state.zoom}>
+            <SimpleMap center={this.props.location.center} zoom={this.props.location.zoom} documents={this.props.documents}>
                 
             </SimpleMap>
             </div>
@@ -86,4 +109,4 @@ class MapPage extends React.Component {
     }
 }
 
-export default MapPage;
+export default connect(mapStateToProps)(MapPage);
