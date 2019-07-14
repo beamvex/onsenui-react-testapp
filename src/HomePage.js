@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Icon, AlertDialog, Button } from 'react-onsenui';
+import logoURL from './assets/img/iscream-logo.png';
 
 class HomePage extends React.Component {
 
@@ -14,7 +14,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <div className="homepage-div">
-            
+                <img src={logoURL} alt="iscream.app" className="home-logo-center"/>
             </div>
         );
     }

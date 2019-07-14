@@ -17,17 +17,13 @@ class App extends React.Component {
       <Page>
         <Toolbar className="gradient-back">
           <div className="left">
-            <BackButton>
-                Back
-            </BackButton>
+           
           </div>
           <div className="center">
             <img src={logoURL} height="40px" alt="iscream.app"/>
           </div>
           <div className="right">
-            <ToolbarButton>
-              <Icon icon="md-menu" />
-            </ToolbarButton>
+            
           </div>
         </Toolbar>
         <Tabbar
