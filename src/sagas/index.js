@@ -1,55 +1,12 @@
-import { put, takeLatest, all, select } from 'redux-saga/effects'; 
-import { GET_NEWS, GET_LOCATION, LOGIN, REGISTER } from "../constants/action-types";
-import { newsReceived, locationReceived, getNews } from "../actions/index";
-import { resolve } from 'q';
+import { takeLatest, all } from 'redux-saga/effects'; 
+import { GET_TRUCKS, GET_LOCATION, LOGIN, REGISTER } from "../constants/action-types";
 import { authFB, registerFB } from './auth/index';
-var fetch = require( 'node-fetch' );
+import { fetchLocation } from './location/index';
+import { fetchTrucks } from './trucks/index';
 
-function* fetchLocation() {
-
-    var response = yield new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                console.log("Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude);
-
-                resolve({
-                    center: {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    },
-                    zoom: 17
-                });
-            }, 
-            theerror => {
-                resolve({noGeo: true, reason: theerror});
-            });
-        } else {
-            resolve({noGeo: true});
-        }
-    });
-    
-    yield put(locationReceived(response));
-
-    yield put(getNews());
-}
-
-function* fetchNews() {
-    const json = yield fetch('https://firestore.googleapis.com/v1/projects/test1-2b206/databases/(default)/documents/trucks/')
-            .then(response => {                
-                return response.json()
-            })
-            .then(json => {
-                console.log(json);
-                return json;
-            }); 
-            
-
-    yield put(newsReceived(json.documents));
-} 
 
 function* actionWatcher() {
-    yield takeLatest(GET_NEWS, fetchNews);
+    yield takeLatest(GET_TRUCKS, fetchTrucks);
     yield takeLatest(GET_LOCATION, fetchLocation);
     yield takeLatest(REGISTER, registerFB);
     yield takeLatest(LOGIN, authFB);

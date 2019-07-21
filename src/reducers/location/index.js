@@ -1,54 +1,19 @@
-import { TRUCKS_RECEIVED, LOCATION_RECEIVED, OPEN_POPOVER, CLOSE_POPOVER } from "../../constants/action-types";
+import { LOCATION_RECEIVED } from "../../constants/action-types";
 const initialState = {
-  location: {
-    center: {
-      lat: 51.4934,
-      lng: 0.0098
-    },
-    zoom: 1
+  center: {
+    lat: 51.4934,
+    lng: 0.0098
   },
-  trucks: [],
-  popover: {
-    text: '',
-    target: null,
-    isOpen: false
-  }
+  zoom: 1
 };
 
-function rootReducer(state = initialState, action) {
+export function locationReducer(state = initialState, action) {
   if (action.type === LOCATION_RECEIVED) {
     console.log(action);
     return Object.assign({}, state, {
-      location: action.location
+      center: action.location.center,
+      zoom: action.location.zoom
     });
   }
-  else if (action.type === TRUCKS_RECEIVED) {
-    console.log(action);
-    return Object.assign({}, state, {
-      documents: action.documents
-    });
-  }
-  else if (action.type === OPEN_POPOVER) {
-    console.log(action);
-    return Object.assign({}, state, {
-      popover: {
-        text: action.text,
-        target: action.target,
-        isOpen: true
-      }
-    });
-  }
-  else if (action.type === CLOSE_POPOVER) {
-      console.log(action);
-      return Object.assign({}, state, {
-        popover: {
-          text: '',
-          target: null,
-          isOpen: false
-        }
-      });
-    }
-    return state;
+  return state;
 }
-
-export default rootReducer;

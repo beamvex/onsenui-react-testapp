@@ -3,7 +3,7 @@ import { put, takeLatest, all, select } from 'redux-saga/effects';
 
 export function* registerFB () {
     const state = yield select();
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(state.auth.email, state.auth.password)
     
     .catch(function(error) {
         // Handle Errors here.
@@ -15,7 +15,7 @@ export function* registerFB () {
 
 export function* authFB () {
     const state = yield select();
-    firebase.auth().signUpUserWithEmailAndPassword(email, password)
+    firebase.auth().signUpUserWithEmailAndPassword(state.auth.email, state.auth.password)
     
     .catch(function(error) {
         // Handle Errors here.

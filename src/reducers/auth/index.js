@@ -5,7 +5,7 @@ const initialState = {
     loggedin: false,
 };
 
-function authReducer(state = initialState, action) {
+export function authReducer(state = initialState, action) {
 
     if (action.type === LOGIN) {
         return Object.assign({}, state, {
@@ -23,5 +23,3 @@ function authReducer(state = initialState, action) {
     return state;
 
 }
-
-export default authReducer;

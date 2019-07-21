@@ -6,16 +6,17 @@ import { connect } from "react-redux";
 import { openPopUp, closePopUp } from "./actions/index"
 
 const mapStateToProps = state => {
-  return state;
+    console.log(state);
+    return state;
 };
 
 function mapDispatchToProps(dispatch) {
     return {
-      openPopUp: (target, text) => dispatch(openPopUp(target, text)),
-      closePopUp: () => dispatch(closePopUp())
+        openPopUp: (target, text) => dispatch(openPopUp(target, text)),
+        closePopUp: () => dispatch(closePopUp())
     };
 }
-  
+
 
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
@@ -26,24 +27,23 @@ class TruckBase extends React.Component {
 
     constructor(props) {
         super(props);
-       // Don't call this.setState() here!
+        // Don't call this.setState() here!
         this.state = {
         };
     }
 
     render() {
-         return (
-         <Icon
-            size={{ default: 32, material: 40 }}
-            icon={{ default: 'md-truck' }} 
-            onClick={() => 
-                {
+        return (
+            <Icon
+                size={{ default: 32, material: 40 }}
+                icon={{ default: 'md-truck' }}
+                onClick={() => {
                     console.log("clicked!");
                     this.props.openPopUp(this.btn, this.props.document.fields.name.stringValue);
                 }}
-            ref={(btn) => { this.btn = btn; }}  
-        >
-         </Icon>);
+                ref={(btn) => { this.btn = btn; }}
+            >
+            </Icon>);
     }
 
 }
@@ -60,18 +60,18 @@ class MapPopoverBase extends React.Component {
     }
 
     render() {
-        console.log('map popover render', this.props.popover.isOpen);
+        console.log('map popover render', this.props.uiReducer.isOpen);
         return (
-        <Popover
-            isOpen={this.props.popover.isOpen}
-            onCancel={() => {console.log('cancelled'); this.props.closePopUp();}}
-            getTarget={() => this.props.popover.target} isCancelable={true}
+            <Popover
+                isOpen={this.props.uiReducer.isOpen}
+                onCancel={() => { console.log('cancelled'); this.props.closePopUp(); }}
+                getTarget={() => this.props.uiReducer.target} isCancelable={true}
             >
-            <div style={{textAlign: 'center', opacity: 0.5}}>
-                <p>{this.props.popover.text}</p>
-                <p><small>Click the background to remove the popover.</small></p>
+                <div style={{ textAlign: 'center', opacity: 0.5 }}>
+                    <p>{this.props.uiReducer.text}</p>
+                    <p><small>Click the background to remove the popover.</small></p>
                 </div>
-                </Popover>
+            </Popover>
         )
     }
 }
@@ -105,9 +105,9 @@ class SimpleMap extends React.Component {
                         text="My Marker"
                     />
 
-                    {this.props.documents.map(doc => {
+                    {this.props.trucks.map(doc => {
 
-                        
+
 
                         return (<Truck key={doc.name} lat={doc.fields.lat.doubleValue} lng={doc.fields.lng.doubleValue} document={doc} />);
                     }
@@ -137,12 +137,12 @@ class MapPage extends React.Component {
     render() {
         console.log('mappage', this.props);
 
-            return (
+        return (
             <div>
-            <SimpleMap center={this.props.location.center} zoom={this.props.location.zoom} documents={this.props.documents}>
-                
-            </SimpleMap>
-            <MapPopover/>
+                <SimpleMap center={this.props.locationReducer.center} zoom={this.props.locationReducer.zoom} trucks={this.props.truckReducer.trucks}>
+
+                </SimpleMap>
+                <MapPopover />
             </div>
         );
     }

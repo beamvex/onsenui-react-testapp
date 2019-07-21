@@ -25,6 +25,4 @@ store.subscribe(() => {
     console.log(store.getState());
 });
 
-store.dispatch(addArticle({title: 'one'}));
-
 store.dispatch(getLocation());
