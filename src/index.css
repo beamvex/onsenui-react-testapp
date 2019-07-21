@@ -22,4 +22,15 @@ code {
   background-image: radial-gradient(#44bbff 35%, #04659c) !important;
   height: calc(100vh - 100px);
   width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.width-max {
+  width: 100%;
+}
+
+.p50pButton {
+  padding: 2px;
 }
