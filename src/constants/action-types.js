@@ -5,3 +5,5 @@ export const GET_LOCATION = "GET_LOCATION";
 export const LOCATION_RECEIVED = "LOCATION_RECEIVED";
 export const OPEN_POPOVER = "OPEN_POPOVER";
 export const CLOSE_POPOVER = "CLOSE_POPOVER";
+export const LOGIN = "LOGIN";
+export const REGISTER = "REGISTER";

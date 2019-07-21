@@ -1,7 +1,8 @@
-import { put, takeLatest, all } from 'redux-saga/effects'; 
-import { GET_NEWS, GET_LOCATION } from "../constants/action-types";
+import { put, takeLatest, all, select } from 'redux-saga/effects'; 
+import { GET_NEWS, GET_LOCATION, LOGIN, REGISTER } from "../constants/action-types";
 import { newsReceived, locationReceived, getNews } from "../actions/index";
 import { resolve } from 'q';
+import { authFB, registerFB } from './auth/index';
 var fetch = require( 'node-fetch' );
 
 function* fetchLocation() {
@@ -50,6 +51,8 @@ function* fetchNews() {
 function* actionWatcher() {
     yield takeLatest(GET_NEWS, fetchNews);
     yield takeLatest(GET_LOCATION, fetchLocation);
+    yield takeLatest(REGISTER, registerFB);
+    yield takeLatest(LOGIN, authFB);
 } 
 
 export default function* rootSaga() {
