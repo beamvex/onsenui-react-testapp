@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabbar, Tab, Page, Toolbar, BackButton, ToolbarButton, Icon } from 'react-onsenui';
 import './App.css';
 import MapPage from './MapPage';
-import HomePage from './HomePage';
+import { HomePage } from './HomePage';
 import logoURL from './assets/img/iscream-logo.png';
 
 class App extends React.Component {

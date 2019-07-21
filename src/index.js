@@ -11,6 +11,12 @@ import { addArticle, getNews, getLocation } from "./actions/index";
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
+import * as firebase from 'firebase';
+var app = firebase.initializeApp({ 
+    apiKey: 'AIzaSyBpBwGqd8U8GA-HschlOvAUWJVjUFr1bJc',
+    projectId: 'test1-2b206',
+ });
+
 ReactDOM.render(  <Provider store={store}>
     <App />
   </Provider>,

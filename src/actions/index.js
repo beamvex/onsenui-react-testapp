@@ -24,10 +24,10 @@ export function closePopUp() {
     return { type: CLOSE_POPOVER}
 }
 
-export function register(email, password) {
+export function signUp(email, password) {
     return { type: REGISTER, email, password }
 }
 
-export function login(email, password) {
+export function signIn(email, password) {
     return { type: LOGIN, email, password }
 }

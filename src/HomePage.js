@@ -2,8 +2,22 @@ import React from 'react';
 import './App.css';
 import logoURL from './assets/img/iscream-logo.png';
 import { Card, Input, Button, Col, Row} from 'react-onsenui';
+import { connect } from "react-redux";
+import { signIn, signUp } from "./actions/index"
 
-class HomePage extends React.Component {
+const mapStateToProps = state => {
+    console.log(state);
+    return state;
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        signIn: (email, password) => dispatch(signIn(email, password)),
+        signUp: (email, password) => dispatch(signUp(email, password))
+    };
+}
+
+class HomePageBase extends React.Component {
 
     constructor(props) {
         super(props);
@@ -36,12 +50,12 @@ class HomePage extends React.Component {
                         </Col></Row>
                         <Row>                            
                         <Col className="p50pButton">
-                        <Button modifier="large--cta" >
+                        <Button modifier="large--cta" onClick={() => {this.props.signIn(this.state.email, this.state.password)}}>
                         Sign In!
                         </Button>
                         </Col>
                         <Col className="p50pButton">
-                        <Button modifier="large--cta">
+                        <Button modifier="large--cta" onClick={() => {this.props.signUp(this.state.email, this.state.password)}}>
                         Sign Up!
                         </Button>
                         </Col>
@@ -53,4 +67,4 @@ class HomePage extends React.Component {
     }
 }
 
-export default HomePage;
+export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageBase);

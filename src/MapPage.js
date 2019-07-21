@@ -17,7 +17,6 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-
 const AnyReactComponent = ({ text }) => <Icon
     size={{ default: 32, material: 40 }}
     icon={{ default: 'md-gps-dot' }}
