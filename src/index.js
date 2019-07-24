@@ -5,17 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "react-redux";
 import store from "./store/index";
-import { addArticle, getNews, getLocation } from "./actions/index";
+import { loadStore, getLocation } from "./actions/index";
 
 // Webpack CSS import
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
 import * as firebase from 'firebase';
-var app = firebase.initializeApp({ 
-    apiKey: 'AIzaSyBpBwGqd8U8GA-HschlOvAUWJVjUFr1bJc',
-    projectId: 'test1-2b206',
- });
 
 ReactDOM.render(  <Provider store={store}>
     <App />
@@ -30,5 +26,14 @@ serviceWorker.unregister();
 store.subscribe(() => {
     console.log(store.getState());
 });
+
+var localStore = {};
+try {
+    localStore = JSON.parse(localStorage.getItem('store'));
+} catch (e) {
+    // ignore bad data
+}
+
+store.dispatch(loadStore(localStore));
 
 store.dispatch(getLocation());

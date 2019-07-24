@@ -6,3 +6,5 @@ export const OPEN_POPOVER = "OPEN_POPOVER";
 export const CLOSE_POPOVER = "CLOSE_POPOVER";
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
+export const LOAD_STORE = "LOAD_STORE";
+export const UPDATE_EMAIL = "UPDATE_EMAIL";

@@ -1,4 +1,13 @@
-import { GET_TRUCKS, TRUCKS_RECEIVED, GET_LOCATION, LOCATION_RECEIVED, OPEN_POPOVER, CLOSE_POPOVER, LOGIN, REGISTER } from "../constants/action-types";
+import { GET_TRUCKS, 
+    TRUCKS_RECEIVED, 
+    GET_LOCATION, 
+    LOCATION_RECEIVED, 
+    OPEN_POPOVER, 
+    CLOSE_POPOVER, 
+    LOGIN, 
+    REGISTER,
+    UPDATE_EMAIL,
+    LOAD_STORE } from "../constants/action-types";
 
 export function getTrucks() {
     return { type: GET_TRUCKS}
@@ -30,4 +39,12 @@ export function signUp(email, password) {
 
 export function signIn(email, password) {
     return { type: LOGIN, email, password }
+}
+
+export function updateEmail(email) {
+    return { type: UPDATE_EMAIL, email }
+}
+
+export function loadStore(store) {
+    return { type: LOAD_STORE, store }
 }
