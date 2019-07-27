@@ -1,18 +1,42 @@
-import { put } from 'redux-saga/effects'; 
-import { trucksReceived } from "../../actions/index";
+import { put, select } from 'redux-saga/effects';
+import { trucksReceived, updateListener, addTruck } from "../../actions/index";
+import store from '../../store/index'
 
-var fetch = require( 'node-fetch' );
+// This import loads the firebase namespace along with all its type information.
+import * as firebase from 'firebase/app';
+
+// These imports load individual services into the firebase namespace.
+import 'firebase/auth';
 
 export function* fetchTrucks() {
-    const json = yield fetch('https://firestore.googleapis.com/v1/projects/test1-2b206/databases/(default)/documents/trucks/')
-            .then(response => {                
-                return response.json()
-            })
-            .then(json => {
-                console.log(json);
-                return json;
-            }); 
-            
 
-    yield put(trucksReceived(json.documents));
+    const state = yield select();
+
+    if (state.truckReducer.listner !== undefined) {
+        state.truckReducer.listner();
+    }
+
+    var listener = undefined;
+
+    yield listener = firebase.firestore().collection('trucks').onSnapshot(updateTrucks);
+
+    yield put(updateListener(listener));
+
+}
+
+function updateTrucks(result) {
+    
+    var trucks = [];
+
+    store.dispatch(trucksReceived(trucks));
+
+    result.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        var truck = {
+            id: doc.id,
+            ...doc.data()
+        }
+        store.dispatch(addTruck(truck));
+    })
 }

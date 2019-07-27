@@ -40,5 +40,5 @@ var app = firebase.initializeApp({
     projectId: 'test1-2b206',
 });
 firebase.auth().onAuthStateChanged((user) => {
-    console.log('logged in', user);
+    console.log('logged in', user.uid);
 })

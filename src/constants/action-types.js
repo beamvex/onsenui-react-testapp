@@ -8,3 +8,5 @@ export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 export const LOAD_STORE = "LOAD_STORE";
 export const UPDATE_EMAIL = "UPDATE_EMAIL";
+export const UPDATE_LISTNER = "UPDATE_LISTNER";
+export const ADD_TRUCK = "ADD_TRUCK";

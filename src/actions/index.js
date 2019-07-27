@@ -7,7 +7,9 @@ import { GET_TRUCKS,
     LOGIN, 
     REGISTER,
     UPDATE_EMAIL,
-    LOAD_STORE } from "../constants/action-types";
+    LOAD_STORE,
+    UPDATE_LISTNER,
+    ADD_TRUCK } from "../constants/action-types";
 
 export function getTrucks() {
     return { type: GET_TRUCKS}
@@ -47,4 +49,12 @@ export function updateEmail(email) {
 
 export function loadStore(store) {
     return { type: LOAD_STORE, store }
+}
+
+export function updateListener(listener) {
+    return { type: UPDATE_LISTNER, listener }
+}
+
+export function addTruck(truck) {
+    return { type: ADD_TRUCK, truck }
 }

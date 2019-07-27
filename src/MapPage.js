@@ -38,7 +38,7 @@ class TruckBase extends React.Component {
                 icon={{ default: 'md-truck' }}
                 onClick={() => {
                     console.log("clicked!");
-                    this.props.openPopUp(this.btn, this.props.document.fields.name.stringValue);
+                    this.props.openPopUp(this.btn, this.props.document.name);
                 }}
                 ref={(btn) => { this.btn = btn; }}
             >
@@ -108,7 +108,7 @@ class SimpleMap extends React.Component {
 
 
 
-                        return (<Truck key={doc.name} lat={doc.fields.lat.doubleValue} lng={doc.fields.lng.doubleValue} document={doc} />);
+                        return (<Truck key={doc.id} lat={doc.lat} lng={doc.lng} document={doc} />);
                     }
                     )}
 
