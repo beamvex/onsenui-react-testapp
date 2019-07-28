@@ -40,5 +40,11 @@ var app = firebase.initializeApp({
     projectId: 'test1-2b206',
 });
 firebase.auth().onAuthStateChanged((user) => {
-    console.log('logged in', user.uid);
+    console.log('user event', user);
+    if (user !== null) {
+        console.log('logged in', user.uid);
+    }
+    else {
+        console.log('not logged in');
+    }
 })
