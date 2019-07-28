@@ -18,10 +18,18 @@ export function* fetchLocation() {
                 });
             }, 
             theerror => {
-                resolve({noGeo: true, reason: theerror});
+                resolve({noGeo: true, reason: theerror, center: {
+                    lat: 51.4934,
+                    lng: 0.0098
+                },
+                zoom: 17});
             });
         } else {
-            resolve({noGeo: true});
+            resolve({noGeo: true, center: {
+                lat: 51.4934,
+                lng: 0.0098
+            },
+            zoom: 17, reason: 'no location object'});
         }
     });
     
